@@ -1,9 +1,9 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class HelloServant extends UnicastRemoteObject implements HelloService {
+public class RepositoryServant extends UnicastRemoteObject implements HelloService {
 	
-	public HelloServant() throws RemoteException {
+	public RepositoryServant() throws RemoteException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
