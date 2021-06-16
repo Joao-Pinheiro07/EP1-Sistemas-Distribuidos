@@ -11,4 +11,6 @@ public interface PartRepository extends Remote {
 	public Part getPart(long code) throws RemoteException;
 
 	public List<Part> listParts() throws RemoteException;
+
+	public String getName() throws RemoteException;
 }

@@ -3,12 +3,13 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
 public class ApplicationServer {
 
 	private static Registry registry;
 	
-	private static RepositoryServant repository;
+	private static PartRepository repository;
 
 	public static void main(String[] args) throws RemoteException {
 		if (args.length == 0) {
@@ -36,7 +37,7 @@ public class ApplicationServer {
 
 	private static void createRepository(String serverName) throws AccessException, RemoteException {
 		try {
-			repository = new RepositoryServant(serverName);
+			repository = new RepositoryServant(serverName);			
 			registry.bind(serverName, repository);
 			System.out.println("New server created: " + serverName);
 			System.out.println("New repository created: " + repository.getName());

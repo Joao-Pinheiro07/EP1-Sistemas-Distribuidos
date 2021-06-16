@@ -27,7 +27,7 @@ public class RepositoryServant extends UnicastRemoteObject implements PartReposi
 		return this.repository.stream().filter(p -> p.getUid() == code).findFirst().orElse(null);
 	}
 	
-	public String getName() {
+	public String getName() throws RemoteException {
 		return this.name;
 	}
 
