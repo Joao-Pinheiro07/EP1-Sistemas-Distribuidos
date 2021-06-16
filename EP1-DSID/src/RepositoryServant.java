@@ -8,9 +8,9 @@ public class RepositoryServant extends UnicastRemoteObject implements PartReposi
 	private String name;
 	private ArrayList<Part> repository;
 
-	public RepositoryServant(String name) throws RemoteException {
+	public RepositoryServant(String serverName) throws RemoteException {
 		super();
-		this.name = name;
+		this.name = serverName + "Repository";
 		this.repository = new ArrayList<>();
 		// TODO Auto-generated constructor stub
 	}
@@ -25,6 +25,10 @@ public class RepositoryServant extends UnicastRemoteObject implements PartReposi
 
 	public Part getPart(long code) throws RemoteException {
 		return this.repository.stream().filter(p -> p.getUid() == code).findFirst().orElse(null);
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 
 	public List<Part> listParts() throws RemoteException {
