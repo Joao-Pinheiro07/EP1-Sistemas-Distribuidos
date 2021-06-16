@@ -4,6 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.ArrayIndexOutOfBoundsException;
 
@@ -12,6 +13,8 @@ public class Client {
 	private static Registry registry;
 
 	private static PartRepository currentRepository;
+	
+	private static Part currentPart;
 
 	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
 		registry = LocateRegistry.getRegistry(5099);
@@ -21,7 +24,7 @@ public class Client {
 
 	private static String[] listRepositories() throws AccessException, RemoteException {
 		String[] names = registry.list();
-		int i = 1;
+		int i = 0;
 		for (String name : names)
 			System.out.println(i++ + "- " + name);
 		return names;
@@ -32,6 +35,7 @@ public class Client {
 		System.out.println();
 
 		String[] servers = listRepositories();
+		System.out.println();
 
 		Scanner sc = new Scanner(System.in);
 		String number = sc.nextLine();
@@ -39,7 +43,7 @@ public class Client {
 
 		try {
 
-			int index = (Integer.parseInt(number) - 1);
+			int index = (Integer.parseInt(number));
 			currentRepository = (PartRepository) registry.lookup(servers[index]);
 			System.out.println("Current repository updated: " + currentRepository.getName());
 
@@ -55,4 +59,13 @@ public class Client {
 
 	}
 
+	private static void listp() throws RemoteException {
+		ArrayList<Part> parts = currentRepository.listParts();
+		System.out.println();
+		int i = 0;
+		for(Part p: parts) {
+			System.out.println(i++ + "- " + p.getName());
+		}
+		System.out.println();
+	}
 }

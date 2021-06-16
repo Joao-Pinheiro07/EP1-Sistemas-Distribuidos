@@ -1,5 +1,6 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface PartRepository extends Remote {
@@ -10,7 +11,7 @@ public interface PartRepository extends Remote {
 
 	public Part getPart(long code) throws RemoteException;
 
-	public List<Part> listParts() throws RemoteException;
+	public ArrayList<Part> listParts() throws RemoteException;
 
 	public String getName() throws RemoteException;
 }
