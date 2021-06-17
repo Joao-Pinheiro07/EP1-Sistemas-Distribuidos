@@ -9,9 +9,9 @@ public interface PartRepository extends Remote {
 
 	public void addPart(Part peca) throws RemoteException;
 
-	public Part getPart(long code) throws RemoteException;
+	public Part findPart(String code) throws RemoteException;
 
-	public ArrayList<Part> listParts() throws RemoteException;
+	public ArrayList<Part> getParts() throws RemoteException;
 
 	public String getName() throws RemoteException;
 }

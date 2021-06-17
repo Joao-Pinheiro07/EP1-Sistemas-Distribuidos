@@ -2,6 +2,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -9,27 +11,34 @@ public class Peca implements Part {
 	private UUID uuid;
 	private String name;
 	private String description;
-	private ArrayList<Subcomponente> subcomponentes;
-	private String repositoryName;
+	private ArrayList<Subcomponent> subcomponentes;
+	private String serverRespositoryName;
 
-	public Peca(String name, String description, ArrayList<Subcomponente> subcomponentes, String repositoryName) {
+	public Peca(String name, String description) {
 		this.uuid = UUID.randomUUID();
 		this.name = name;
-		this.description = description;
-		this.subcomponentes = new ArrayList<Subcomponente>();
-		this.repositoryName = repositoryName;
+		this.description = description;		
+		
+	}
+
+	public void setServerRespositoryName(String serverRespositoryName) {
+		this.serverRespositoryName = serverRespositoryName;
 	}
 
 	public String getName() {
 		return this.name;
 	}
 
-	public ArrayList<Subcomponente> getSubcomponentes() {
-		return subcomponentes;
+	public ArrayList<Subcomponent> getSubcomponentes() {
+		return this.subcomponentes;
 	}
 
 	public String getDescription() {
-		return description;
+		return this.description;
+	}
+	
+	public String getServerRepositoryName() {
+		return this.serverRespositoryName;
 	}
 
 	public boolean isPrimitivePart() {
@@ -39,17 +48,23 @@ public class Peca implements Part {
 	}
 
 	public PartRepository getPartRepository() throws MalformedURLException, RemoteException, NotBoundException {
-		return (PartRepository) Naming.lookup("rmi://localhost:5099/" + repositoryName);
+		Registry registry = LocateRegistry.getRegistry(5099);
+		return (PartRepository) registry.lookup(serverRespositoryName);
 	}
 
-	public ArrayList<Part> listSubParts() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Subcomponent> getSubcomponents() {
+		return this.subcomponentes;
 	}
 
-	public Long getUid() {
+	public String getUid() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.uuid.toString();
 	}
+
+	public void setSubcomponentes(ArrayList<Subcomponent> subcomponentes) {
+		this.subcomponentes = subcomponentes;
+	}
+	
+	
 
 }

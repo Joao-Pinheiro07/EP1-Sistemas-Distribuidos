@@ -12,7 +12,13 @@ public interface Part {
 
 	public boolean isPrimitivePart();
 
-	public ArrayList<Part> listSubParts();
+	public ArrayList<Subcomponent> getSubcomponents();
 
-	public Long getUid();
+	public String getUid();
+
+	public String getServerRepositoryName();
+	
+	public void setSubcomponentes(ArrayList<Subcomponent> subcomponentes);
+	
+	public void setServerRespositoryName(String serverRespositoryName);
 }

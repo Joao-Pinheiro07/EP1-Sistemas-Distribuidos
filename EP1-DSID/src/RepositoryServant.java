@@ -23,15 +23,15 @@ public class RepositoryServant extends UnicastRemoteObject implements PartReposi
 		this.repository.add(peca);
 	}
 
-	public Part getPart(long code) throws RemoteException {
-		return this.repository.stream().filter(p -> p.getUid() == code).findFirst().orElse(null);
+	public Part findPart(String code) throws RemoteException {
+		return this.repository.stream().filter(p -> p.getUid().equals(code)).findFirst().orElse(null);
 	}
 	
 	public String getName() throws RemoteException {
 		return this.name;
 	}
 
-	public List<Part> listParts() throws RemoteException {
+	public ArrayList<Part> getParts() throws RemoteException {
 		return this.repository;
 	}
 }
