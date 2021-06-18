@@ -1,5 +1,10 @@
+import java.io.Serializable;
 
-public class Subcomponent {
+public class Subcomponent implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Part subPart;
 	private int quant;
 

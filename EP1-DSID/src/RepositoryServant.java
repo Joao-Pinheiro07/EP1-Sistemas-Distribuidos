@@ -1,10 +1,13 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RepositoryServant extends UnicastRemoteObject implements PartRepository {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private ArrayList<Part> repository;
 

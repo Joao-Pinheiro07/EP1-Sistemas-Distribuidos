@@ -1,5 +1,4 @@
 import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -8,22 +7,24 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Peca implements Part {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private UUID uuid;
 	private String name;
 	private String description;
 	private ArrayList<Subcomponent> subcomponentes;
 	private String serverRespositoryName;
 
-	public Peca(String name, String description) {
+	public Peca(String name, String description, String serverRespositoryName) {
 		this.uuid = UUID.randomUUID();
 		this.name = name;
-		this.description = description;		
-		
-	}
-
-	public void setServerRespositoryName(String serverRespositoryName) {
+		this.description = description;
 		this.serverRespositoryName = serverRespositoryName;
 	}
+
 
 	public String getName() {
 		return this.name;
