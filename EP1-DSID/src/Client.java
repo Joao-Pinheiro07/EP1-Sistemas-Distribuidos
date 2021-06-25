@@ -30,6 +30,7 @@ public class Client {
 		String command;
 
 		do {
+			System.out.println();
 			command = sc.nextLine();
 			System.out.println();
 
@@ -43,6 +44,7 @@ public class Client {
 		int i = 0;
 		for (String name : names)
 			System.out.println(i++ + " - " + name);
+		System.out.println();
 		return names;
 	}
 
@@ -51,10 +53,10 @@ public class Client {
 		System.out.println();
 
 		String[] servers = listRepositories();
-		System.out.println();
 
 		int index = sc.nextInt();
 		sc.nextLine();
+		System.out.println();
 
 		try {
 
@@ -77,7 +79,6 @@ public class Client {
 		ArrayList<Part> parts = currentRepository.getParts();
 		System.out.println("Number of parts: " + parts.size());
 
-
 		if (parts.isEmpty()) {
 			System.out.println("This repository is empty!");
 			return;
@@ -88,16 +89,16 @@ public class Client {
 		for (Part p : parts) {
 			System.out.println(i++ + " - " + p.getName() + " (" + p.getUid() + ")");
 		}
-		System.out.println();
 	}
 
 	private static void getp() throws RemoteException {
 		if (isCurrentRepositoryEmpty())
 			return;
 		System.out.println("Enter the code of the part you want to search:");
-		System.out.println();
 
+		System.out.println();
 		String code = sc.nextLine();
+		System.out.println();
 
 		Part part = currentRepository.findPart(code);
 		if (part != null) {
@@ -114,7 +115,6 @@ public class Client {
 	private static void showp() {
 		if (!isValidCurrentPart())
 			return;
-		System.out.println();
 		System.out.println("Code: " + currentPart.getUid());
 		System.out.println("Name: " + currentPart.getName());
 		System.out.println("Description: " + currentPart.getDescription());
@@ -125,7 +125,6 @@ public class Client {
 			Part subPart = sub.getSubPart();
 			System.out.println("  -" + subPart.getName() + " (" + subPart.getUid() + ") Quant: " + sub.getQuant());
 		}
-		System.out.println();
 	}
 
 	private static void clearlist() {
@@ -143,6 +142,7 @@ public class Client {
 		try {
 			int number = sc.nextInt();
 			sc.nextLine();
+			System.out.println();
 			currentSubcomponents.add(new Subcomponent(currentPart, number));
 			System.out.println(number + " " + currentPart.getName() + " added to the current subcomponent list.");
 		} catch (InputMismatchException e) {
@@ -152,9 +152,11 @@ public class Client {
 	}
 
 	private static void addp() throws RemoteException {
-		System.out.println("Enter the name and description separated by a \" - \": (Example: Aerocool - PC fan).");
+		System.out.println("Enter the part name and description separated by a \" - \": (Example: Aerocool - PC fan).");
 
+		System.out.println();
 		String input = sc.nextLine();
+		System.out.println();
 
 		String[] arguments = input.split(" - ");
 		if (arguments[1] == "" || arguments[1] == null) {
@@ -174,6 +176,7 @@ public class Client {
 	}
 
 	private static void quit() {
+		sc.close();
 		System.out.println("Exiting...");
 		System.exit(0);
 	}
@@ -195,10 +198,7 @@ public class Client {
 			if (sub.getSubPart().isPrimitivePart())
 				count++;
 		}
-		System.out.println();
 		System.out.println("The current part have " + count + " primitives subparts.");
-		System.out.println();
-
 	}
 
 	private static void listSubP() {
@@ -211,13 +211,25 @@ public class Client {
 	}
 
 	private static void showCurrents() throws RemoteException {
-		System.out.println("Current Part: " + currentPart.getName());
-		System.out.print("Current subcomponent list: | ");
-		for (Subcomponent sub : currentSubcomponents) {
-			System.out.print(sub.getSubPart().getName() + " | ");
+		if (currentPart == null)
+			System.out.println("Current Part: null");
+		else
+			System.out.println("Current Part: " + currentPart.getName());
+
+		if (currentSubcomponents.isEmpty())
+			System.out.println("Current subcomponent list: null ");
+		else {
+			System.out.print("Current subcomponent list: | ");
+			for (Subcomponent sub : currentSubcomponents) {
+				System.out.print(sub.getSubPart().getName() + " | ");
+			}
+			System.out.println();
 		}
-		System.out.println();
-		System.out.println("Current repository: " + currentRepository.getName());
+
+		if (currentRepository == null)
+			System.out.println("Current repository: null");
+		else
+			System.out.println("Current repository: " + currentRepository.getName());
 	}
 
 	private static boolean isValidCurrentPart() {
@@ -238,9 +250,7 @@ public class Client {
 	}
 
 	private static void help() {
-		System.out.println();
-		System.out.println("Type:");
-		System.out.println();
+		System.out.println("Type");
 		System.out.println("\"bind\": to bind to one repository;");
 		System.out.println("\"listp\": to list the parts from the current repository");
 		System.out.println(
