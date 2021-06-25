@@ -6,11 +6,8 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.UUID;
 
-public class Peca implements Part {
-	
-	/**
-	 * 
-	 */
+public class Peca implements Part {	
+
 	private static final long serialVersionUID = 1L;
 	private UUID uuid;
 	private String name;
@@ -24,7 +21,6 @@ public class Peca implements Part {
 		this.description = description;
 		this.serverRespositoryName = serverRespositoryName;
 	}
-
 
 	public String getName() {
 		return this.name;
@@ -58,14 +54,11 @@ public class Peca implements Part {
 	}
 
 	public String getUid() {
-		// TODO Auto-generated method stub
 		return this.uuid.toString();
 	}
 
 	public void setSubcomponentes(ArrayList<Subcomponent> subcomponentes) {
 		this.subcomponentes = subcomponentes;
 	}
-	
-	
-
+  
 }
