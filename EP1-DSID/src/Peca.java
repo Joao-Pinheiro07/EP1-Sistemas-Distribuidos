@@ -1,64 +1,66 @@
-import java.net.MalformedURLException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class Peca implements Part {	
-
-	private static final long serialVersionUID = 1L;
-	private UUID uuid;
+public class Peca implements Part {
+	private UUID uid = UUID.randomUUID();
 	private String name;
 	private String description;
-	private ArrayList<Subcomponent> subcomponentes;
-	private String serverRespositoryName;
+	private ArrayList<Subcomponente> subcomponentes;
+	private String repositorio;
 
-	public Peca(String name, String description, String serverRespositoryName) {
-		this.uuid = UUID.randomUUID();
+	/* Criando uma nova peça com atributos definidos */
+
+	public Peca(UUID uid, String name, String description, ArrayList<Subcomponente> Subcomponentes,
+			String repositorio) {
+
+		super();
+		this.uid = uid;
 		this.name = name;
 		this.description = description;
-		this.serverRespositoryName = serverRespositoryName;
+		this.subcomponentes = Subcomponentes;
+		this.repositorio = repositorio;
+		this.isPrimitivePart();
+
 	}
 
+	@Override
 	public String getName() {
-		return this.name;
+		return name;
 	}
 
-	public ArrayList<Subcomponent> getSubcomponentes() {
-		return this.subcomponentes;
+	@Override
+	public void setName(String name) {
+		this.name = name;
 	}
 
+	@Override
 	public String getDescription() {
-		return this.description;
-	}
-	
-	public String getServerRepositoryName() {
-		return this.serverRespositoryName;
+		return description;
 	}
 
-	public boolean isPrimitivePart() {
-		if (subcomponentes.isEmpty())
-			return true;
-		return false;
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public PartRepository getPartRepository() throws MalformedURLException, RemoteException, NotBoundException {
-		Registry registry = LocateRegistry.getRegistry(5099);
-		return (PartRepository) registry.lookup(serverRespositoryName);
+	@Override
+	public ArrayList<Subcomponente> getSubComponentes() {
+		return subcomponentes;
 	}
 
-	public ArrayList<Subcomponent> getSubcomponents() {
-		return this.subcomponentes;
-	}
-
-	public String getUid() {
-		return this.uuid.toString();
-	}
-
-	public void setSubcomponentes(ArrayList<Subcomponent> subcomponentes) {
+	@Override
+	public void setSubcomponentes(ArrayList<Subcomponente> subcomponentes) {
 		this.subcomponentes = subcomponentes;
 	}
-  
+
+	@Override
+	public String getRepositorio() {
+		return repositorio;
+	}
+
+	@Override
+	public void setRepositorio(String repositorio) {
+		this.repositorio = repositorio;
+	}
 }

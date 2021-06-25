@@ -1,40 +1,15 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 
-public class RepositoryServant extends UnicastRemoteObject implements PartRepository {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String name;
-	private ArrayList<Part> repository;
-
-	public RepositoryServant(String serverName) throws RemoteException {
+public class RepositoryServant extends UnicastRemoteObject implements HelloService {
+	
+	public RepositoryServant() throws RemoteException {
 		super();
-		this.name = serverName + "Repository";
-		this.repository = new ArrayList<>();
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public String teste(String input) throws RemoteException {
 		return ("From service: " + input);
-	}
-
-	public void addPart(Part peca) throws RemoteException {
-		this.repository.add(peca);
-	}
-
-	public Part findPart(String code) throws RemoteException {
-		return this.repository.stream().filter(p -> p.getUid().equals(code)).findFirst().orElse(null);
-	}
-	
-	public String getName() throws RemoteException {
-		return this.name;
-	}
-
-	public ArrayList<Part> getParts() throws RemoteException {
-		return this.repository;
 	}
 }
